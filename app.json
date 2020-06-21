@@ -1,0 +1,17 @@
+{
+  "name": "conFusionApp",
+  "displayName": "conFusionApp",
+  "expo": {
+    "name": "conFusionApp",
+    "slug": "conFusionApp",
+    "version": "1.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
