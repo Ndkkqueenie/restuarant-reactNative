@@ -7,6 +7,8 @@ import { Icon } from 'react-native-elements';
 import Home from './HomeComponent';
 import Menu from './MenuComponent';
 import Dishdetail from './DishdetailComponent';
+import Contact from './ContactComponent';
+import About from './AboutComponent';
 
 const MenuNavigator = createStackNavigator();
 
@@ -84,6 +86,68 @@ function HomeNavigatorScreen() {
     );
 }
 
+const AboutNavigator = createStackNavigator();
+
+
+function AboutNavigatorScreen() {
+    return(
+        <AboutNavigator.Navigator
+            initialRouteName='About'
+            screenOptions={HeaderOptions}
+        >
+            <AboutNavigator.Screen
+                name="About"
+                component={About}
+                options={
+                    ({navigation}) => ({
+                        headerLeft: () => (
+                            <Icon 
+                                name='menu' 
+                                size={24}
+                                color='white'
+                                onPress={() => 
+                                    navigation.toggleDrawer()}
+                            />
+                        )
+                    
+                    })
+                 }
+            />
+        </AboutNavigator.Navigator>
+    );
+}
+
+const ContactNavigator = createStackNavigator();
+
+
+function ContactNavigatorScreen() {
+    return(
+        <ContactNavigator.Navigator
+            initialRouteName='Contact'
+            screenOptions={HeaderOptions}
+        >
+            <ContactNavigator.Screen
+                name="Contact"
+                component={Contact}
+                options={
+                    ({navigation}) => ({
+                        headerLeft: () => (
+                            <Icon 
+                                name='menu' 
+                                size={24}
+                                color='white'
+                                onPress={() => 
+                                    navigation.toggleDrawer()}
+                            />
+                        )
+                    
+                    })
+                 }
+            />
+        </ContactNavigator.Navigator>
+    );
+}
+
 const MainNavigator = createDrawerNavigator();
 
 function MainNavigatorDrawer() {
@@ -102,12 +166,27 @@ function MainNavigatorDrawer() {
                         <Icon
                             name='home'
                             type='font-awesome'
-                            size={24}
+                            size={20}
                             color={tintColor}
                         />
                     )
                 }}
 
+            />
+            <AboutNavigator.Screen 
+                name="About"       
+                component={AboutNavigatorScreen} 
+                options={{
+                    drawerIcon: ({tintColor}) => (
+                        <Icon
+                            name='info'
+                            type='font-awesome'
+                            size={24}
+                            margin={5}
+                            color={tintColor}
+                        />
+                    )
+                }}                
             />
             <MainNavigator.Screen 
                 name="Menu"       
@@ -116,6 +195,20 @@ function MainNavigatorDrawer() {
                     drawerIcon: ({tintColor}) => (
                         <Icon
                             name='list'
+                            type='font-awesome'
+                            size={20}
+                            color={tintColor}
+                        />
+                    )
+                }}                
+            />
+            <ContactNavigator.Screen 
+                name="Contact"       
+                component={ContactNavigatorScreen} 
+                options={{
+                    drawerIcon: ({tintColor}) => (
+                        <Icon
+                            name='phone'
                             type='font-awesome'
                             size={24}
                             color={tintColor}
