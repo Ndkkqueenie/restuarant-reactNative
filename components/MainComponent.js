@@ -9,6 +9,7 @@ import Menu from './MenuComponent';
 import Dishdetail from './DishdetailComponent';
 import Contact from './ContactComponent';
 import About from './AboutComponent';
+import Reservation from './ReservationComponent';
 import { connect } from 'react-redux';
 import { fetchDishes, fetchComments, fetchPromos, fetchLeaders } from '../redux/ActionCreators';
 
@@ -75,7 +76,6 @@ function MenuNavigatorScreen() {
 
 const HomeNavigator = createStackNavigator();
 
-
 function HomeNavigatorScreen() {
     return(
         <HomeNavigator.Navigator
@@ -105,7 +105,6 @@ function HomeNavigatorScreen() {
 }
 
 const AboutNavigator = createStackNavigator();
-
 
 function AboutNavigatorScreen() {
     return(
@@ -137,7 +136,6 @@ function AboutNavigatorScreen() {
 
 const ContactNavigator = createStackNavigator();
 
-
 function ContactNavigatorScreen() {
     return(
         <ContactNavigator.Navigator
@@ -163,6 +161,37 @@ function ContactNavigatorScreen() {
                  }
             />
         </ContactNavigator.Navigator>
+    );
+}
+
+const ReservationNavigator = createStackNavigator();
+
+
+function ReservationNavigatorScreen() {
+    return(
+        <ReservationNavigator.Navigator
+            initialRouteName='Reserve Table'
+            screenOptions={HeaderOptions}
+        >
+            <ReservationNavigator.Screen
+                name="Reserve Table"
+                component={Reservation}
+                options={
+                    ({navigation}) => ({
+                        headerLeft: () => (
+                            <Icon 
+                                name='menu' 
+                                size={24}
+                                color='white'
+                                onPress={() => 
+                                    navigation.toggleDrawer()}
+                            />
+                        )
+                    
+                    })
+                 }
+            />
+        </ReservationNavigator.Navigator>
     );
 }
 
@@ -245,6 +274,20 @@ function MainNavigatorDrawer() {
                             name='address-card'
                             type='font-awesome'
                             size={22}
+                            color={tintColor}
+                        />
+                    )
+                }}                
+            />
+            <ReservationNavigator.Screen 
+                name="Reserve Table"       
+                component={ReservationNavigatorScreen} 
+                options={{
+                    drawerIcon: ({tintColor}) => (
+                        <Icon
+                            name='cutlery'
+                            type='font-awesome'
+                            size={24}
                             color={tintColor}
                         />
                     )
