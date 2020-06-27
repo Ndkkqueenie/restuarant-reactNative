@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Text, View, ScrollView, FlatList } from 'react-native';
 import { Card, Icon } from 'react-native-elements';
-import { DISHES } from './shared/dishes';
-import { COMMENTS } from './shared/comments';
+import { DISHES } from '../shared/dishes';
+import { COMMENTS } from '../shared/comments';
 
 function RenderDish(props) {
 

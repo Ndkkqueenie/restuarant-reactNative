@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, ScrollView, FlatList } from 'react-native';
 import { Card, ListItem } from 'react-native-elements';
-import { LEADERS } from './shared/leaders';
+import { LEADERS } from '../shared/leaders';
 
 
 function History() {

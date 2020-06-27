@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Text, ScrollView, View } from 'react-native';
 import { Card } from 'react-native-elements';
-import { DISHES } from './shared/dishes';
-import { PROMOTIONS } from './shared/promotions';
-import { LEADERS } from './shared/leaders';
+import { DISHES } from '../shared/dishes';
+import { PROMOTIONS } from '../shared/promotions';
+import { LEADERS } from '../shared/leaders';
 
 function RenderItem(props) {
     
