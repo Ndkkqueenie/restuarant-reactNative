@@ -9,6 +9,7 @@ import Menu from './MenuComponent';
 import Dishdetail from './DishdetailComponent';
 import Contact from './ContactComponent';
 import About from './AboutComponent';
+import Favorites from './FavoriteComponent';
 import Reservation from './ReservationComponent';
 import { connect } from 'react-redux';
 import { fetchDishes, fetchComments, fetchPromos, fetchLeaders } from '../redux/ActionCreators';
@@ -164,6 +165,37 @@ function ContactNavigatorScreen() {
     );
 }
 
+const FavoritesNavigator = createStackNavigator();
+
+
+function FavoritesNavigatorScreen() {
+    return(
+        <FavoritesNavigator.Navigator
+            initialRouteName='My Favorite'
+            screenOptions={HeaderOptions}
+        >
+            <FavoritesNavigator.Screen
+                name="My Favorite"
+                component={Favorites}
+                options={
+                    ({navigation}) => ({
+                        headerLeft: () => (
+                            <Icon 
+                                name='menu' 
+                                size={24}
+                                color='white'
+                                onPress={() => 
+                                    navigation.toggleDrawer()}
+                            />
+                        )
+                    
+                    })
+                 }
+            />
+        </FavoritesNavigator.Navigator>
+    );
+}
+
 const ReservationNavigator = createStackNavigator();
 
 
@@ -274,6 +306,20 @@ function MainNavigatorDrawer() {
                             name='address-card'
                             type='font-awesome'
                             size={22}
+                            color={tintColor}
+                        />
+                    )
+                }}                
+            />
+            <FavoritesNavigator.Screen 
+                name="My Favorite"       
+                component={FavoritesNavigatorScreen} 
+                options={{
+                    drawerIcon: ({tintColor}) => (
+                        <Icon
+                            name='heart'
+                            type='font-awesome'
+                            size={24}
                             color={tintColor}
                         />
                     )
