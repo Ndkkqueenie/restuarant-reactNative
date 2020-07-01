@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, ScrollView, View } from 'react-native';
+import { Text, View, Animated, Easing } from 'react-native';
 import { Card } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
@@ -36,18 +36,56 @@ function RenderItem(props) {
 
 class Home extends Component {
 
-    static navigationOptions = {
-        title: 'Home',
-    };
+    constructor(props) {
+        super(props);
+        this.animatedValue = new Animated.Value(0);        
+    }
+
+    componentDidMount () {
+        this.animate()
+    }
+
+    animate () {
+        this.animatedValue.setValue(0)
+        Animated.timing(
+          this.animatedValue,
+          {
+            toValue: 8,
+            duration: 8000,
+            easing: Easing.linear
+          }
+        ).start(() => this.animate())
+    }
 
     render() {
-        
+        const xpos1 = this.animatedValue.interpolate({
+            inputRange: [0, 1, 3, 5, 8],
+            outputRange: [800, 400, 0, -400, -800]
+        })
+        const xpos2 = this.animatedValue.interpolate({
+            inputRange: [0, 2, 4, 6, 8],
+            outputRange: [800, 400, 0, -400, -800]
+        })
+        const xpos3 = this.animatedValue.interpolate({
+            inputRange: [0, 3, 5, 7, 8],
+            outputRange: [800, 400, 0, -400, -800 ]
+        })
+
         return(
-            <ScrollView>
-                <RenderItem item={this.props.dishes.dishes.filter((dish) => dish.featured)[0]} />
-                <RenderItem item={this.props.promotions.promotions.filter((promo) => promo.featured)[0]} />
-                <RenderItem item={this.props.leaders.leaders.filter((leader) => leader.featured)[0]} />
-            </ScrollView>
+            <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
+            <Animated.View style={{ width: '100%', transform: [{translateX: xpos1}]}}>
+                <RenderItem item={this.props.dishes.dishes.filter((dish) => dish.featured)[0]}
+                    />
+            </Animated.View>
+            <Animated.View style={{ width: '100%',  transform: [{translateX: xpos2}]}}>
+                <RenderItem item={this.props.promotions.promotions.filter((promo) => promo.featured)[0]}
+                    />
+            </Animated.View>
+            <Animated.View style={{ width: '100%',  transform: [{translateX: xpos3}]}}>
+                <RenderItem item={this.props.leaders.leaders.filter((leader) => leader.featured)[0]}
+                    />
+                </Animated.View>
+            </View>
         );
     }
 }
