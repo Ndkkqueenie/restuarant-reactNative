@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, FlatList, Modal, StyleSheet, Button ,Alert, PanResponder} from 'react-native';
+import { View, Text, ScrollView, FlatList, Modal, StyleSheet, Button ,Alert, PanResponder, Share} from 'react-native';
 import { Card, Icon, Rating, Input } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
@@ -23,7 +23,7 @@ const mapDispatchToProps = dispatch => ({
 function RenderDish(props) {
   const dish = props.dish;
 
-  const handleViewRef=ref=>this.view=ref;
+  const handleViewRef= (ref) => {this.view = ref;};
 
   const recognizeDrag=({moveX,moveY,dx,dy})=>{
       if(dx<-200)
@@ -37,6 +37,16 @@ function RenderDish(props) {
     else
       return false;
   };
+  //social sharing
+  const shareDish = (title, message, url) => {
+    Share.share({
+        title: title,
+        message: title + ': ' + message + ' ' + url,
+        url: url
+    },{
+        dialogTitle: 'Share ' + title
+    })
+}
   const panResponder=PanResponder.create({
       onStartShouldSetPanResponder:(e,gestureState)=>{
           return true;
@@ -84,22 +94,31 @@ function RenderDish(props) {
           </Text>
           <View style={{flexDirection: 'row', justifyContent: 'center',}}>
             <Icon
-                raised
-                reverse
-                name={ props.favorite ? 'heart' : 'heart-o'}
-                type='font-awesome'
-                color='#f50'
-                onPress={() => props.favorite ? console.log('Already favorite') : props.onPress()}
-             />
-             <Icon
-                 raised
-                 reverse
-                 name='pencil'
-                 type='font-awesome'
-                 color='#512DA8'
-                 onPress={() => props.toggleCommentModal() }
-              />
-            </View>
+              raised
+              reverse
+              name={ props.favorite ? 'heart' : 'heart-o'}
+              type='font-awesome'
+              color='#f50'
+              onPress={() => props.favorite ? console.log('Already favorite') : props.onPress()}
+            />
+            <Icon
+              raised
+              reverse
+              name='pencil'
+              type='font-awesome'
+              color='#512DA8'
+              onPress={() => props.toggleCommentModal() }
+            />
+            <Icon
+              raised
+              reverse
+              name='share'
+              type='font-awesome'
+              color='#51D2A8'
+              style={styles.cardItem}
+              onPress={() => shareDish(dish.name, dish.description, baseUrl + dish.image)} 
+            />
+          </View>
       </Card>
     </Animatable.View>
 
